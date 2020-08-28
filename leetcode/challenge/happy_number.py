@@ -23,12 +23,13 @@ class Solution:
         if n == 0: return False
         if n == 1: return True
 
-        array = [n]
-        history = {n: 1}
+        number: int = n
+        history: dict = {n: 1}
 
-        while len(array):
-            nums = [int(x) for x in str(array.pop())]
-            result = 0
+        while number != 1:
+            nums = [int(x) for x in str(number)]
+            result: int = 0
+
             for num in nums:
                 result += num ** 2
 
@@ -39,7 +40,7 @@ class Solution:
                 return False
             else:
                 history[result] = 1
-                array.append(result)
+                number = result
 
 
 # 401 / 401 test cases passed.
@@ -50,4 +51,7 @@ class Solution:
 # Your runtime beats 99.05 % of python3 submissions.
 # Your memory usage beats 46.45 % of python3 submissions.
 
+# after adding type:
+# Your runtime beats 95.38 % of python3 submissions.
+# Your memory usage beats 91.01 % of python3 submissions.
 
