@@ -15,15 +15,22 @@ from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         candidates = {}
-        result = []
 
         for i, item in enumerate(nums):
             if item in candidates:
-                result.append(candidates[item])
-                result.append(i)
-            else:
-                candidates[target - item] = i
+                return [candidates[item], i]
 
-        return result
+            candidates[target - item] = i
 
-# Your runtime beats 76.34 % of python3 submissions.
+        return []
+
+
+# after fix:
+# 29 / 29 test cases passed.
+# Status: Accepted
+# Runtime: 44 ms
+# Memory Usage: 15.1 MB
+
+# Your runtime beats 95.83 % of python3 submissions.
+# Your memory usage beats 58.46 % of python3 submissions.
+
