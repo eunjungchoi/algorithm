@@ -39,24 +39,32 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack: List = []
 
+        table = {
+            ')': '(',
+            '}': '{',
+            ']': '['
+        }
         for i in s:
-            if i in ['(', '{', '[']:
+            if i not in table:
                 stack.append(i)
-            elif i in [')', '}', ']']:
-                if not len(stack): return False
-                top: str = stack.pop()
+            elif not stack or table[i] != stack.pop():
+                return False
 
-                if i == ')' and top != '(':
-                    return False
-                if i == '}' and top != '{':
-                    return False
-                if i == ']' and top != '[':
-                    return False
+        return len(stack) == 0
 
-        if len(stack):
-            return False
-        else:
-            return True
+        # for i in s:
+        #     if i in ['(', '{', '[']:
+        #         stack.append(i)
+        #     elif i in [')', '}', ']']:
+        #         if not stack: return False
+        #         top: str = stack.pop()
+        #
+        #         if i == ')' and top != '(':
+        #             return False
+        #         if i == '}' and top != '{':
+        #             return False
+        #         if i == ']' and top != '[':
+        #             return False
 
 
 # 91 / 91 test cases passed.
