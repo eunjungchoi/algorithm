@@ -28,6 +28,7 @@ class MyStack:
         """
         Push element x onto stack.
         """
+        # 맨 오른쪽으로 넣었는데, 맨 왼쪽 것을 빼내면 가장 최근 것이 나오도록.
         self.q.append(x)
         for i in range(len(self.q) - 1):
             self.q.append(self.q.popleft())
@@ -36,6 +37,7 @@ class MyStack:
         """
         Removes the element on top of the stack and returns that element.
         """
+        # 가장 왼쪽 것을 빼내기  (가장 최근에 넣은 것이 나옴)  원래 큐대로라면 가장 오래된 것이 나와야 함.
         return self.q.popleft()
 
     def top(self) -> int:
