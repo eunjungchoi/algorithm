@@ -12,11 +12,14 @@
 #   [3,1,2],
 #   [3,2,1]
 # ]
+import itertools
 from typing import List
 
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        # return list(itertools.permutations(nums))
+
         result = []
         prev_elements = []
 
@@ -130,6 +133,10 @@ class Solution:
 #
 # Your runtime beats 61.51 % of python3 submissions.
 # Your memory usage beats 29.41 % of python3 submissions.
+
+# using itertools
+# Your runtime beats 92.69 % of python3 submissions.
+# Your memory usage beats 85.54 % of python3 submissions.
 
 
 
