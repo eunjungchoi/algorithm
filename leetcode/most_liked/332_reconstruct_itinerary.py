@@ -31,6 +31,7 @@ class Solution:
 
         route = []
 
+        # recursive
         def dfs(a):
             # 첫번째 값을 읽어서 어휘순으로 방문한다. (sorted에서 reverse=False 일 때. pop(0)으로 큐 처럼 연산)
             # 마지막 값을 읽어서 어휘순으로 방문
@@ -39,6 +40,16 @@ class Solution:
             route.append(a)
 
         dfs('JFK')
+
+        # iterative
+        # stack = ['JFK']
+        # while stack:  # 마지막 방문지가 남지 않을 때까지
+        #     while graph[stack[-1]]:  # 그래프에 값이 있으면 
+        #         spot = graph[stack[-1]].pop(0)  # pop(0)으로 맨 처음 값을 추출.
+        #         stack.append(spot)  # 스택에 넣는다.  = 큐 연산
+        #     route.append(stack.pop())  # 재귀와 달리 반복으로 풀이하려면, 이처럼 한번 더 풀어낼 수 있는 변수가 필요하다.
+        #     # 경로가 풀리면서 거꾸로 담기게 됨.
+
         # 다시 뒤집어서 어휘순으로 반환.
         return route[::-1]
 
