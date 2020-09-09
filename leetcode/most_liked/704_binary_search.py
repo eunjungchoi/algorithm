@@ -30,7 +30,7 @@ class Solution:
         #         right = len(nums) - 1
 
         #         while left <= right:
-        #             mid = (left + right) // 2
+        #             mid = left + (right - left) // 2
 
         #             if target < nums[mid]:
         #                 right = mid - 1
@@ -51,9 +51,9 @@ class Solution:
 
 # 46 / 46 test cases passed.
 # Status: Accepted
-# Runtime: 256 ms
-# Memory Usage: 15 MB
+# Runtime: 240 ms
+# Memory Usage: 15.1 MB
 #
-# Your runtime beats 82.41 % of python3 submissions.
-# Your memory usage beats 53.21 % of python3 submissions.
+# Your runtime beats 99.61 % of python3 submissions.
+# Your memory usage beats 30.89 % of python3 submissions.
 
