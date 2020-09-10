@@ -60,6 +60,18 @@ class Solution:
 
         return result
 
+        # 간단한 버전
+        # a 와 b의 역할을 구분해 a에는 carry 값을 고려하지 않는 a와 b의 합(sum)이 담기게 하고,
+        # b에는 자릿수를 올려가며 carry 값이 담기게 했다.
+
+        # while b != 0:
+        #     a, b = (a ^ b) & MASK, ((a & b) << 1) & MASK
+        #
+        # if a > INT_MAX:
+        #     a = ~(a ^ MASK)
+        #
+        # return a
+
 
 # 13 / 13 test cases passed.
 # Status: Accepted
