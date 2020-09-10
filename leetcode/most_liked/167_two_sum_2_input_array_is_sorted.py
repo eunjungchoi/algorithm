@@ -59,19 +59,36 @@ class Solution:
         #                     return k+1, mid+1
 
         # using bisect
-        for k, v in enumerate(numbers):
-            expected = target - v
-            i = bisect.bisect_left(numbers, expected, lo=k + 1)
-            if i < len(numbers) and numbers[i] == expected:
-                return [k + 1, i + 1]
+        # for k, v in enumerate(numbers):
+        #     expected = target - v
+        #     i = bisect.bisect_left(numbers, expected, lo=k + 1)
+        #     if i < len(numbers) and numbers[i] == expected:
+        #         return [k + 1, i + 1]
+
+        # two pointers
+        left, right = 0, len(numbers) - 1
+
+        while not left == right:
+            if numbers[left] + numbers[right] < target:
+                left += 1
+            elif numbers[left] + numbers[right] > target:
+                right -= 1
+            else:
+                return [left + 1, right + 1]
+
 
 # 17 / 17 test cases passed.
 # Status: Accepted
 # Runtime: 68 ms
 # Memory Usage: 14.4 MB
 #
+# bisect
 # Your runtime beats 62.26 % of python3 submissions.
 # Your memory usage beats 40.28 % of python3 submissions.
 # <파이썬 알고리즘 인터뷰> 참고.
+
+# two pointer
+# Your runtime beats 62.26 % of python3 submissions.
+# Your memory usage beats 98.44 % of python3 submissions.
 
 
