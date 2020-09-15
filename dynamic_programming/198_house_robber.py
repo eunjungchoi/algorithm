@@ -1,6 +1,10 @@
-# You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+# You are a professional robber planning to rob houses along a street.
+# Each house has a certain amount of money stashed,
+# the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and
+# it will automatically contact the police if two adjacent houses were broken into on the same night.
 #
-# Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+# Given a list of non-negative integers representing the amount of money of each house,
+# determine the maximum amount of money you can rob tonight without alerting the police.
 #
 #
 #
@@ -23,8 +27,12 @@
 # 0 <= nums.length <= 100
 # 0 <= nums[i] <= 400
 
-# 당신은 전문털이범이다. 어느 집에서든 돈을 훔쳐올 수 있지만 경보 시스템 때문에 바로 옆집은 훔칠 수 없고 한 칸 이상 떠렁진 집만 가능하다. 각 집에는 훔칠 수 있는 돈의 액수가 입력값으로 표기되어 있다. 훔칠 수 있는 가장 큰 금액을 출력하라.
-# 다이내믹 프로그래밍을 떠올릴 수 있을 것 같다. 바로 옆집은 훔칠 수 없으니 현재 집과 옆집 숫자 중의 최댓값을 구하고, 한 집 건넛집까지의 최댓값과 현재 집의 숫자값과의 합을 구해서 두 수 중 더 높은 값이 정답이 된다.
+# 당신은 전문털이범이다. 어느 집에서든 돈을 훔쳐올 수 있지만 경보 시스템 때문에 바로 옆집은 훔칠 수 없고 한 칸 이상 떨진 집만 가능하다. 어
+# 각 집에는 훔칠 수 있는 돈의 액수가 입력값으로 표기되어 있다. 훔칠 수 있는 가장 큰 금액을 출력하라.
+
+# 다이내믹 프로그래밍을 떠올릴 수 있을 것 같다.
+# 바로 옆집은 훔칠 수 없으니 현재 집과 옆집 숫자 중의 최댓값을 구하고, 한 집 건넛집까지의 최댓값과 현재 집의 숫자값과의 합을 구해서 두 수 중 더 높은 값이 정답이 된다.
+
 import collections
 from typing import List
 

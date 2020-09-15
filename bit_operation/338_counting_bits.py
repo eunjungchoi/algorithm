@@ -17,6 +17,9 @@
 # Space complexity should be O(n).
 # Can you do it like a boss?
 # Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
+
+# 0부터 n까지 모든 수를 이진수로 바꾼 후, 각각의 1의 개수를 세어라
+
 from typing import List
 
 
