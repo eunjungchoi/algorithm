@@ -34,6 +34,9 @@
 
 
 # Definition for a binary tree node.
+from typing import List
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -43,6 +46,14 @@ class TreeNode:
 
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
+        # 1. recursive inorder traversal
+        # 중위순회하면서 오름차순으로 정렬하기
+        # def inorder(root) -> List:
+        #     return inorder(root.left) + [root.val] + inorder(root.right) if root else []
+        #
+        # return inorder(root)[k - 1]
+
+        # 2. iterative  (using stack)
         # 제일 왼쪽 leaf로 이동해서 while문으로 k번 루프를 돌면서 다음(=오른쪽) 노드를 찾기
         stack = []
 
@@ -59,6 +70,19 @@ class Solution:
 
             # 다음으로 큰 노드 찾기?
             root = root.right  # 오른쪽 노드로 이동해서 다시 왼쪽 leaf 로 파고들어갈 준비
+
+
+# 1. recursive
+# - time complexity : O(N) to build a traversal.
+# - space complexity: O(N) to keep an inorder traversal.
+
+# Your runtime beats 46.10 % of python3 submissions.
+# Your memory usage beats 35.84 % of python3 submissions.
+
+
+# 2. iterative - stack
+# - time complexity : O(H + k)  , where H is a tree height
+# - space complexity: O(H) , where H is a tree height.
 
 
 # 91 / 91 test cases passed.
