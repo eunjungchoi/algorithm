@@ -70,27 +70,51 @@ class Node:
 
 class Solution:
     # 1. DFS recursively
-    def cloneGraph(self, node: 'Node') -> 'Node':
+    # def cloneGraph(self, node: 'Node') -> 'Node':
+    #     if not node:
+    #         return node
+    #     memo = {node: Node(node.val)}
+    #     self.dfs(node, memo)
+    #     return memo[node]
+    #
+    # def dfs(self, node, memo):
+    #     for neighbor in node.neighbors:
+    #         if neighbor not in memo:
+    #             memo[neighbor] = Node(neighbor.val)
+    #             self.dfs(neighbor, memo)
+    #         memo[node].neighbors.append(
+    #             memo[neighbor])  # 그냥 neighbor가 아니라, memo에 있는 neighbor를 append 해줘야 함. 그래야  reference가 아닌 deepcopy가 됨.
+
+    # 2. DFS iteratively
+    def cloneGraph(self, node):
         if not node:
             return node
+
         memo = {node: Node(node.val)}
-        self.dfs(node, memo)
+        stack = [node]
+
+        while stack:
+            item = stack.pop()
+            for neighbor in item.neighbors:
+                if neighbor not in memo:
+                    memo[neighbor] = Node(neighbor.val)
+                    stack.append(neighbor)
+                memo[item].neighbors.append(memo[neighbor])
+
         return memo[node]
-
-    def dfs(self, node, memo):
-        for neighbor in node.neighbors:
-            if neighbor not in memo:
-                memo[neighbor] = Node(neighbor.val)
-                self.dfs(neighbor, memo)
-            memo[node].neighbors.append(
-                memo[neighbor])  # 그냥 neighbor가 아니라, memo에 있는 neighbor를 append 해줘야 함. 그래야  reference가 아닌 deepcopy가 됨.
-
 
 # 21 / 21 test cases passed.
 # Status: Accepted
+
+# DFS recursively
 # Runtime: 40 ms
 # Memory Usage: 14 MB
-#
 # Your runtime beats 64.94 % of python3 submissions.
 # Your memory usage beats 73.37 % of python3 submissions.
 
+
+# DFS iteratively
+# Runtime: 40 ms
+# Memory Usage: 13.8 MB
+# Your runtime beats 64.94 % of python3 submissions.
+# Your memory usage beats 98.85 % of python3 submissions.
