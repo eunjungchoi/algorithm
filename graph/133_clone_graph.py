@@ -60,6 +60,7 @@
 # The Graph is connected and all nodes can be visited starting from the given node.
 
 # Definition for a Node.
+import collections
 
 
 class Node:
@@ -70,23 +71,23 @@ class Node:
 
 class Solution:
     # 1. DFS recursively
-    # def cloneGraph(self, node: 'Node') -> 'Node':
-    #     if not node:
-    #         return node
-    #     memo = {node: Node(node.val)}
-    #     self.dfs(node, memo)
-    #     return memo[node]
-    #
-    # def dfs(self, node, memo):
-    #     for neighbor in node.neighbors:
-    #         if neighbor not in memo:
-    #             memo[neighbor] = Node(neighbor.val)
-    #             self.dfs(neighbor, memo)
-    #         memo[node].neighbors.append(
-    #             memo[neighbor])  # 그냥 neighbor가 아니라, memo에 있는 neighbor를 append 해줘야 함. 그래야  reference가 아닌 deepcopy가 됨.
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return node
+        memo = {node: Node(node.val)}
+        self.dfs(node, memo)
+        return memo[node]
+
+    def dfs(self, node, memo):
+        for neighbor in node.neighbors:
+            if neighbor not in memo:
+                memo[neighbor] = Node(neighbor.val)
+                self.dfs(neighbor, memo)
+            memo[node].neighbors.append(
+                memo[neighbor])  # 그냥 neighbor가 아니라, memo에 있는 neighbor를 append 해줘야 함. 그래야  reference가 아닌 deepcopy가 됨.
 
     # 2. DFS iteratively
-    def cloneGraph(self, node):
+    def cloneGraph2(self, node):
         if not node:
             return node
 
@@ -102,6 +103,25 @@ class Solution:
                 memo[item].neighbors.append(memo[neighbor])
 
         return memo[node]
+
+    # 3. BFS
+    def cloneGraph3(self, node):
+        if not node:
+            return node
+
+        memo = {node: Node(node.val)}
+        deque = collections.deque([node])
+
+        while deque:
+            item = deque.popleft()
+            for neighbor in item.neighbors:
+                if neighbor not in memo:
+                    memo[neighbor] = Node(neighbor.val)
+                    deque.append(neighbor)
+                memo[item].neighbors.append(memo[neighbor])
+
+        return memo[node]
+
 
 # 21 / 21 test cases passed.
 # Status: Accepted
