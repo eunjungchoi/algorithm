@@ -46,12 +46,15 @@
 
 class Solution:
     def isMatch(self, text: str, pattern: str) -> bool:
-        dp = [[False] * (len(pattern) + 1) for _ in range(len(text) + 1)]
 
+        # dynamic programming : tabulation (bottom up)
+        dp = [[False] * (len(pattern) + 1) for _ in range(len(text) + 1)]
+        # dp(i, j) : does text[i:] and pattern[j:] match
+        # 둘다 뒤에서부터 체크하면서 앞으로 이동.
         dp[-1][-1] = True
 
-        for i in range(len(text), -1, -1):
-            for j in range(len(pattern) - 1, -1, -1):
+        for i in range(len(text), -1, -1):    # text의 마지막 인덱스+1 부터 0까지,  1씩 감소하면서 순회.
+            for j in range(len(pattern) - 1, -1, -1):   # pattern의 마지막 인덱스부터 0까지, 1씩 감소하면서 순회
 
                 first_match = i < len(text) and pattern[j] in {text[i], '.'}
 
@@ -62,4 +65,25 @@ class Solution:
 
         return dp[0][0]
 
+        # "aab"
+        # "c*a*b"
 
+        #    c  *  a  *  b
+        # a [1, 0, 1, 0, 0, 0],  i=0
+        # a [1, 0, 1, 0, 0, 0],  i=1
+        # b [1, 0, 1, 0, 1, 0],  i=2
+        #   [0, 0, 0, 0, 0, 1],  # dp[-1][-1] = 1로 시작.
+
+        # [[True, False, True, False, False, False],
+        #  [True, False, True, False, False, False],
+        #  [True, False, True, False, True, False],
+        #  [False, False, False, False, False, True]]
+
+
+# 447 / 447 test cases passed.
+# Status: Accepted
+# Runtime: 56 ms
+# Memory Usage: 13.8 MB
+#
+# Your runtime beats 64.35 % of python3 submissions.
+# Your memory usage beats 82.46 % of python3 submissions.
