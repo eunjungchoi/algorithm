@@ -29,13 +29,13 @@ from typing import List
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         # 0. 현재까지 최대로 멀리 갈 수 있는 인덱스와 현재 인덱스를 비교.
-        max_position = 0
-        for i, num in enumerate(nums):
-            if i > max_position:  # 누적으로 가장 멀리 갈 수 있는 인덱스가  현재 인덱스보다 작으면  끝까지 못 간다는 것.
-                return False
-            max_position = max(max_position, i + num)  # 최대로 멀리 갈 수 있는 인덱스를 업데이트.
-
-        return True
+        # max_position = 0
+        # for i, num in enumerate(nums):
+        #     if i > max_position:  # 누적으로 가장 멀리 갈 수 있는 인덱스가  현재 인덱스보다 작으면  끝까지 못 간다는 것.
+        #         return False
+        #     max_position = max(max_position, i + num)  # 최대로 멀리 갈 수 있는 인덱스를 업데이트.
+        #
+        # return True
 
         # 1. 처음부터 시작해서  가장 멀리 갈 수 있는 인덱스가 맨 마지막 인덱스보다 작으면 false
         #         left = 0
@@ -50,6 +50,14 @@ class Solution:
         #             return False
 
         #         return True
+
+        # 2.  뒤에서부터 앞으로 이동하며 last position 업데이트 
+        last = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            if i + nums[i] >= last:
+                last = i
+
+        return last == 0
 
 
 # 75 / 75 test cases passed.
