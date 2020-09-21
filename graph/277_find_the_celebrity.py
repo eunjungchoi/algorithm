@@ -49,17 +49,23 @@
 # return a bool, whether a knows b
 # 셀레브리티를 찾아라.
 
+from functools import lru_cache
+
 def knows(a: int, b: int) -> bool:
 
 
 class Solution:
+    @lru_cache(maxsize=None)
+    def cachedKnows(self, a, b):
+        return knows(a, b)
+
     def findCelebrity(self, n: int) -> int:
         # logical deduction
         self.n = n
         celeb_candidate = 0
 
         for i in range(n):
-            if knows(celeb_candidate, i):
+            if self.cachedKnows(celeb_candidate, i):
                 celeb_candidate = i
 
         if self.is_celebrity(celeb_candidate):
@@ -70,7 +76,7 @@ class Solution:
     def is_celebrity(self, i):
         for j in range(self.n):
             if i == j: continue
-            if knows(i, j) or not knows(j, i):
+            if self.cachedKnows(i, j) or not self.cachedKnows(j, i):
                 return False
 
         return True
