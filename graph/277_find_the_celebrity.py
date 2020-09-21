@@ -48,23 +48,23 @@
 # The knows API is already defined for you.
 # return a bool, whether a knows b
 # 셀레브리티를 찾아라.
-
 from functools import lru_cache
-
-def knows(a: int, b: int) -> bool:
 
 
 class Solution:
+    def knows(a: int, b: int) -> bool:
+        pass
+
     @lru_cache(maxsize=None)
     def cachedKnows(self, a, b):
-        return knows(a, b)
+        return self.knows(a, b)
 
     def findCelebrity(self, n: int) -> int:
         # logical deduction
         self.n = n
         celeb_candidate = 0
 
-        for i in range(n):
+        for i in range(1, n):
             if self.cachedKnows(celeb_candidate, i):
                 celeb_candidate = i
 
@@ -80,6 +80,17 @@ class Solution:
                 return False
 
         return True
+
+    def findCelebrity2(self, n: int) -> int:
+        x = 0
+        for i in range(n):
+            if self.knows(x, i):
+                x = i
+        if any(self.knows(x, i) for i in range(x)):
+            return -1
+        if any(not self.knows(i, x) for i in range(n)):
+            return -1
+        return x
 
 
 # 171 / 171 test cases passed.
