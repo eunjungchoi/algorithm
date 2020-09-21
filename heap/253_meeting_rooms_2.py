@@ -52,7 +52,6 @@ class Solution:
 
         return len(free_rooms)
 
-
 # 78 / 78 test cases passed.
 # Status: Accepted
 # Runtime: 76 ms
@@ -60,3 +59,37 @@ class Solution:
 #
 # Your runtime beats 89.42 % of python3 submissions.
 # Your memory usage beats 54.38 % of python3 submissions.
+#
+
+    def minMeetingRooms2(self, intervals: List[List[int]]) -> int:
+        # chronological order
+        # two pointers  (start time pointer , end time pointer)
+
+        if not intervals:
+            return 0
+
+        rooms = 0
+
+        # separate out the start and the end timings and sort them individually.
+        start_times = sorted([i[0] for i in intervals])
+        end_times = sorted([i[1] for i in intervals])
+        length = len(intervals)
+
+        # two pointers
+        start_pointer = 0
+        end_pointer = 0
+
+        # until all the meetings have been processed
+        while start_pointer < length:
+
+            if end_times[end_pointer] <= start_times[start_pointer]:
+                # free up a room and increment the end pointer.
+                rooms -= 1
+                end_pointer += 1
+
+            rooms += 1
+            start_pointer += 1
+
+        return rooms
+
+
