@@ -24,6 +24,8 @@
 #
 # All inputs are consist of lowercase letters a-z.
 # The values of words are distinct.
+import collections
+from typing import List
 
 
 class TrieNode():
@@ -84,3 +86,59 @@ class Solution:
         self.dfs(board, node, i, j + 1, path + tmp, res)
         board[i][j] = tmp
 
+    def findWords2(self, board: List[List[str]], words: List[str]) -> List[str]:
+
+        WORD_KEY = '$'
+        trie = {}
+
+        for word in words:
+            node = trie
+            for char in word:
+                node = node.setdefault(char, {})  # 주어진 key에 대한 value를 반환. nested 하게 계속 들어가는 구조.
+            node[WORD_KEY] = word
+
+        rows = len(board)
+        cols = len(board[0])
+
+        matched_words = []
+
+        def backtracking(row, col, parent):
+            char = board[row][col]
+            curr_node = parent[char]
+
+            word_match = curr_node.pop(WORD_KEY, False)
+            if word_match:
+                matched_words.append(word_match)
+
+            # mark the cell as visited
+            board[row][col] = '#'
+            for (r, c) in [(row - 1, col), (row, col + 1), (row + 1, col), (row, col - 1)]:
+                if r < 0 or r >= rows or c < 0 or c >= cols:
+                    continue
+
+                if board[r][c] not in curr_node:
+                    continue
+
+                backtracking(r, c, curr_node)
+
+            # restore the cell
+            board[row][col] = char
+
+            if not curr_node:
+                parent.pop(char)
+
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] in trie:
+                    backtracking(row, col, trie)
+
+        return matched_words
+
+
+# 36 / 36 test cases passed.
+# Status: Accepted
+# Runtime: 204 ms
+# Memory Usage: 28.2 MB
+#
+# Your memory usage beats 74.77 % of python3 submissions.
+# Your runtime beats 99.38 % of python3 submissions.
