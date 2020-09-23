@@ -65,3 +65,25 @@ class HitCounter:  # deque - based
 # obj = HitCounter()
 # obj.hit(timestamp)
 # param_2 = obj.getHits(timestamp)
+
+
+class HitCounter2:   # scalable solution  using modulo operation and hashtable.
+    def __init__(self):
+        self.q = [(0, 0)] * 300
+
+    def hit(self, timestamp):
+        i = timestamp % 300
+        time, hits = self.q[i]
+
+        if time == timestamp:
+            self.q[i] = time, hits + 1
+        else:
+            self.q[i] = timestamp, 1
+
+    def getHits(self, timestamp):
+        count = 0
+        for i, (time, hit) in enumerate(self.q):
+            if timestamp - time < 300:
+                count += hit
+        return count
+
