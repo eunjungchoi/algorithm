@@ -66,6 +66,42 @@ class Solution:
 
         return rightside
 
+    def rightSideView2(self, root: TreeNode) -> List[int]:
+        # 2) BFS: One queue + sentinel
+
+        # to push all the nodes in one queue and to use a sentinel node to separate the levels.
+        # Typically, one could use null as a sentinel.
+
+        # the first step is to initiate the first level: root + null as a sentinel.
+        # Once it's done, continue to pop the nodes one by one from the left and push their children to the right.
+        # Stop each time the current node is null because it means we his the end of the current level.
+        # Each stop is a time to update a right side view list and
+        # to push null in the queue to mark the end of the next level.
+
+        if root is None:
+            return []
+
+        queue = deque([root, None, ])
+        rightside = []
+
+        curr = root
+        while queue:
+            prev, curr = curr, queue.popleft()
+
+            while curr:
+                # add child nodes in the queue.
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+
+                prev, curr = curr, queue.popleft()
+
+            rightside.append(prev.val)
+            if queue:
+                queue.append(None)
+
+        return rightside
 
 # 211 / 211 test cases passed.
 # Status: Accepted
