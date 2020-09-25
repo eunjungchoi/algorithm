@@ -12,11 +12,30 @@
 # Output: 167
 # Explanation: nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
 #              coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
+from functools import lru_cache
 from typing import List
 
 
 class Solution:
-    def maxCoins(self, nums: List[int]) -> int:
+    # dynamic programming: Top down
+    # caching results / recursive calls
+    def maxCoins1(self, nums: List[int]) -> int:
+        nums = [1] + nums + [1]
+
+        # cache this
+        @lru_cache(None)    # cache 하지 않으면 timeout error
+        def dp(left, right):
+            # no more ballons can be added
+            if left + 1 == right:
+                return 0
+
+            list_ = [nums[left] * nums[i] * nums[right] + dp(left, i) + dp(i, right) for i in range(left + 1, right)]
+            return max(list_)
+
+        return dp(0, len(nums) - 1)
+
+    # dynamic programming: bottom up
+    def maxCoins2(self, nums: List[int]) -> int:
         # 0에서 n-1까지 인덱스가 붙은 n개의 풍선이 있다. 각각의 풍선은 인덱스 숫자가 그려져있다.
         # 모든 풍선을 터트려야 한다. 풍선 i 번째를 터트리면 num[left] * nums[i] * nums[right] coin 을 얻는다.
         # 터트리고 나면 left와 right 이 인접한다.
@@ -45,10 +64,10 @@ class Solution:
         return dp[0][n - 1]
 
 
-70 / 70 test cases passed.
-Status: Accepted
-Runtime: 308 ms
-Memory Usage: 14.4 MB
-
-Your runtime beats 98.99 % of python3 submissions.
-Your memory usage beats 40.14 % of python3 submissions.
+# 70 / 70 test cases passed.
+# Status: Accepted
+# Runtime: 308 ms
+# Memory Usage: 14.4 MB
+#
+# Your runtime beats 98.99 % of python3 submissions.
+# Your memory usage beats 40.14 % of python3 submissions.
