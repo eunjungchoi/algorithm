@@ -31,7 +31,7 @@ class Solution:
         if any('A' <= char <= 'Z' for char in s): missing_type -= 1
         if any(char.isdigit() for char in s): missing_type -= 1
 
-        change = 0
+        replace = 0
         one = two = 0  # ?
         i = 2
         while i < len(s):
@@ -41,7 +41,7 @@ class Solution:
                     duplicated_length += 1
                     i += 1
 
-                change += duplicated_length // 3  # every 3번째 마다 1개씩 교체
+                replace += duplicated_length // 3  # every 3번째 마다 1개씩 교체
                 if duplicated_length % 3 == 0:  # aaxaaxaax  9   one
                     one += 1
                 elif duplicated_length % 3 == 1:  # bbxbbxbzzzbbxb 10   two
@@ -54,20 +54,20 @@ class Solution:
             return max(6 - len(s), missing_type)
 
         elif len(s) <= 20:
-            return max(missing_type, change)
+            return max(missing_type, replace)
 
         else:
             delete = len(s) - 20  # 일단 넘치는 개수. 결국 이 만큼은 무조건 빼줘야 함.     len(s)= 24  one = 5
 
-            # change = aaa -> aax 로 교체하려는 x의 개수.  3으로 나눈 몫의 개수. 이미 계산해놓은 것.
-            # 여기서 change 개수만큼 다 바꿀 필요 없이 delete 겸용으로 해서 빼주면 되는 것들이 있고 그걸 빼고 delete 예산에서 빼주면 change 할당량에서는 빼줘야 함.
+            # replace = aaa -> aax 로 교체하려는 x의 개수.  3으로 나눈 몫의 개수. 이미 계산해놓은 것.
+            # 여기서 replace 개수만큼 다 바꿀 필요 없이 delete 겸용으로 해서 빼주면 되는 것들이 있고 그걸 빼고 delete 예산에서 빼주면 replace 할당량에서는 빼줘야 함.
 
-            change -= min(delete, one)  # 원래 빼야 할 개수와 연속수 중 끝 1개를 빼면 되는 개수(연속된 개수가 3의 배수인 것) 중에 비교해서 더 적은 수를 빼줌.
-            # ex) len(s)= 24  delete: 4 < one: 5 이면 one을 4만큼을 빼줌. 4만큼은 x로 change할 필요 없이 그냥 삭제해버리면 되는 것.
-            change -= min(max(delete - one, 0), two * 2) // 2
-            change -= max(delete - one - 2 * two, 0) // 3
+            replace -= min(delete, one)  # 원래 빼야 할 개수와 연속수 중 끝 1개를 빼면 되는 개수(연속된 개수가 3의 배수인 것) 중에 비교해서 더 적은 수를 빼줌.
+            # ex) len(s)= 24  delete: 4 < one: 5 이면 one을 4만큼을 빼줌. 4만큼은 x로 replace할 필요 없이 그냥 삭제해버리면 되는 것.
+            replace -= min(max(delete - one, 0), two * 2) // 2
+            replace -= max(delete - one - 2 * two, 0) // 3
 
-            return delete + max(missing_type, change)
+            return delete + max(missing_type, replace)
 
     """
     6개보다 적거나, 6개 <= s <= 20개는 쉽다. 
