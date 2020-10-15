@@ -38,9 +38,17 @@
 
 # Write your MySQL query statement below
 
-#
+# --- pick 1
 # select customer_number
 # from orders
 # group by customer_number
 # order by count(*) desc
 # limit 1
+
+
+# --- pick top multiple
+# select customer_number
+# from orders
+# group by customer_number
+# having count(*) = (select max(counts)
+#                     from (select count(*) as counts from orders group by customer_number) as sub)
